@@ -1,0 +1,17 @@
+{
+  "name": "lunatictaco-mods",
+  "owner": { "name": "lunatictaco" },
+  "description": "Personal Claude Code mods: run-board and figure-ledger",
+  "plugins": [
+    {
+      "name": "run-board",
+      "source": "./plugins/run-board",
+      "description": "Pane, status line and toasts for background shells, monitors and subagents"
+    },
+    {
+      "name": "figure-ledger",
+      "source": "./plugins/figure-ledger",
+      "description": "Pane of figures, structures and data written this session, with the notebook cell or script behind each figure"
+    }
+  ]
+}
