@@ -1,6 +1,6 @@
 {
   "name": "figure-ledger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A pane listing figures, structures and data files written this session, with the notebook cell or script that made each figure and the data it reads",
   "types": "./types/index.d.ts",
   "author": {

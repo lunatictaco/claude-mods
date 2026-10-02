@@ -175,7 +175,7 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'figure-ledger',
-      description: 'Show figures, structures and data written this session (scan: rescan now, clear: empty it)',
+      description: 'Show figures, structures and data written this session (close, clear)',
     })
     if ((await read($, since)) === 0) {
       const t = await $.clock.now()
@@ -187,6 +187,10 @@ export const register: Register = on => {
 
   on('command.run', { command: 'figure-ledger' }, async ($, e) => {
     const arg = e.args.trim()
+    if (arg === 'close' || arg === 'hide') {
+      await $.ui.close({ id: PANE })
+      return { text: 'figure-ledger: closed (still recording; /figure-ledger reopens it).' }
+    }
     if (arg === 'clear') {
       await clearAll($)
       return { text: 'figure-ledger: cleared.' }

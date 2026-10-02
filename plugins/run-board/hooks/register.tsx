@@ -59,7 +59,7 @@ async function started($: $, run: Run) {
   await update($, runs, l => [...l.filter(r => r.id !== run.id), run].slice(-MAX_RUNS))
   await update($, now, () => run.startedAt)
   await refreshStatus($)
-  if (isFirst) void $.ui.open({ id: PANE, title: 'Runs' })
+  if (isFirst && (await $.store.get('hidden')) !== true) void $.ui.open({ id: PANE, title: 'Runs' })
 }
 
 async function finished($: $, id: string, status: RunStatus, summary?: string) {
@@ -130,7 +130,7 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'run-board',
-      description: 'Show background shells, monitors and subagents in a pane (clear: drop finished rows)',
+      description: 'Show background shells, monitors and subagents in a pane (close, clear)',
     })
     $.clock.every(TICK_MS, () => void tick($).catch(() => undefined))
     void refreshStatus($)
@@ -138,11 +138,18 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'run-board' }, async ($, e) => {
-    if (String((e as any).args ?? '').trim() === 'clear') {
+    const arg = e.args.trim()
+    if (arg === 'close' || arg === 'hide') {
+      await $.store.set('hidden', true)
+      await $.ui.close({ id: PANE })
+      return { text: 'run-board: closed (it will not pop open on its own until you run /run-board).' }
+    }
+    if (arg === 'clear') {
       await update($, runs, l => l.filter(r => r.status === 'running'))
       await refreshStatus($)
       return { text: 'run-board: finished rows cleared.' }
     }
+    await $.store.set('hidden', false)
     await $.ui.open({ id: PANE, title: 'Runs' })
     return { text: `run-board: ${counts(await read($, runs))}` }
   })

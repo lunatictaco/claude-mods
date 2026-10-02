@@ -226,7 +226,7 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'protein',
-      description: 'The folding protein side panel (demo, hide, show, reset)',
+      description: 'The folding protein side panel (close, open, demo, reset)',
     })
     const total = Number((await $.store.get('folded')) ?? 0)
     await update($, folded, () => total)
@@ -236,7 +236,8 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'protein' }, async ($, e) => {
-    const arg = e.args.trim()
+    const raw = e.args.trim()
+    const arg = raw === 'close' ? 'hide' : raw === 'open' ? 'show' : raw
     if (arg === 'hide' || arg === 'show') {
       await setHidden($, arg === 'hide')
       return { text: `protein: ${arg === 'hide' ? 'panel closed (stays closed in new sessions until /protein show)' : 'panel open'}.` }

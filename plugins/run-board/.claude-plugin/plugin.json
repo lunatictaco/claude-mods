@@ -1,6 +1,6 @@
 {
   "name": "run-board",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A pane and toasts for background shells, monitors and subagents: status, elapsed time, latest output line, exit code",
   "types": "./types/index.d.ts",
   "author": {
