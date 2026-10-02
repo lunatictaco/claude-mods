@@ -3,7 +3,7 @@
   "owner": {
     "name": "lunatictaco"
   },
-  "description": "Personal Claude Code mods: run-board, figure-ledger and protein-pet",
+  "description": "Personal Claude Code mods: run-board, figure-ledger, protein-pet and project-tree",
   "plugins": [
     {
       "name": "run-board",
@@ -19,6 +19,11 @@
       "name": "protein-pet",
       "source": "./plugins/protein-pet",
       "description": "A little protein in a side panel that folds as runs finish and misfolds on failures"
+    },
+    {
+      "name": "project-tree",
+      "source": "./plugins/project-tree",
+      "description": "/tree: the project's directory tree in the side panel, with git change markers"
     }
   ]
 }

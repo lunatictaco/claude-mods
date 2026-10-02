@@ -1,0 +1,7 @@
+{
+  "name": "project-tree",
+  "version": "0.1.0",
+  "description": "/tree: the project's directory tree in a side panel, with git change markers, refreshed as files change",
+  "author": { "name": "lunatictaco" },
+  "types": "./types/index.d.ts"
+}
