@@ -1,7 +1,9 @@
 {
   "name": "lunatictaco-mods",
-  "owner": { "name": "lunatictaco" },
-  "description": "Personal Claude Code mods: run-board and figure-ledger",
+  "owner": {
+    "name": "lunatictaco"
+  },
+  "description": "Personal Claude Code mods: run-board, figure-ledger and protein-pet",
   "plugins": [
     {
       "name": "run-board",
@@ -12,6 +14,11 @@
       "name": "figure-ledger",
       "source": "./plugins/figure-ledger",
       "description": "Pane of figures, structures and data written this session, with the notebook cell or script behind each figure"
+    },
+    {
+      "name": "protein-pet",
+      "source": "./plugins/protein-pet",
+      "description": "A little protein above the prompt that folds as runs finish and misfolds on failures"
     }
   ]
 }
