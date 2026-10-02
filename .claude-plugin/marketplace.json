@@ -18,7 +18,7 @@
     {
       "name": "protein-pet",
       "source": "./plugins/protein-pet",
-      "description": "A little protein above the prompt that folds as runs finish and misfolds on failures"
+      "description": "A little protein in a side panel that folds as runs finish and misfolds on failures"
     }
   ]
 }

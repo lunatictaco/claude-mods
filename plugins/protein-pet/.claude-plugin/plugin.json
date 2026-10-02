@@ -1,7 +1,7 @@
 {
   "name": "protein-pet",
-  "version": "0.1.1",
-  "description": "A little protein above the prompt that folds a step for every finished run, and misfolds on failures",
+  "version": "0.2.0",
+  "description": "A little protein in a side panel that folds a step for every finished run, and misfolds on failures",
   "author": { "name": "lunatictaco" },
   "types": "./types/index.d.ts"
 }
