@@ -3,15 +3,18 @@ import type { EngineInterface as $, Register } from 'claude-code'
 
 import type { Mood } from '../types'
 
-// The chain: 25 residues whose native state is a 5 × 5 spiral, the last
-// nine (the spiral's centre) hydrophobic, so folding buries them in a core.
-const N = 25
+// The chain: 24 residues whose native state is a 6 × 4 spiral, the last
+// eight (the spiral's centre) hydrophobic, so folding buries them in a core.
+const N = 24
+const GX = 6
+const GY = 4
+const CORE_N = 8
 const TARGET = 20
 const FRAME_MS = 120
 const NATIVE_HOLD_MS = 20000
 const MISFOLD_MS = 3000
 const W = 50
-const H = 10
+const H = 8
 const ROWS = H / 2
 const KEY = 'protein'
 const DEFAULT = 0x01000000
@@ -31,7 +34,7 @@ const anim = { frame: 0, shown: 0, requestId: '', isWorking: false, seen: new Se
 
 function spiral(): Array<[number, number]> {
   const out: Array<[number, number]> = []
-  let [x0, y0, x1, y1] = [0, 0, 4, 4]
+  let [x0, y0, x1, y1] = [0, 0, GX - 1, GY - 1]
   while (out.length < N) {
     for (let y = y1; y >= y0 && out.length < N; y--) out.push([x0, y])
     for (let x = x0 + 1; x <= x1 && out.length < N; x++) out.push([x, y0])
@@ -42,9 +45,9 @@ function spiral(): Array<[number, number]> {
   return out
 }
 
-const NATIVE_XY = spiral().map(([bx, by]) => [20 + bx * 2, 1 + by * 2] as const)
-const OPEN_XY = Array.from({ length: N }, (_, i) => [i * 2, 5] as const)
-const isCore = (i: number) => i >= N - 9
+const NATIVE_XY = spiral().map(([bx, by]) => [19 + bx * 2, 1 + by * 2] as const)
+const OPEN_XY = Array.from({ length: N }, (_, i) => [1 + i * 2, 4] as const)
+const isCore = (i: number) => i >= N - CORE_N
 
 function ease(t: number): number {
   return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2
